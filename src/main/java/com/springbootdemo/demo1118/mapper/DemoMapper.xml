@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootdemo.demo1118.mapper.DemoMapper">
+    <select id="list" resultType="string">
+        select dept_name from dept where dept_no = #{id}
+    </select>
+    <select id="queryMapList" resultType="map">
+        select
+         <foreach collection="list" item="lis" separator=",">
+            ${lis}
+         </foreach>
+         from dept
+    </select>
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="id">
+        insert into dept (dept_no,dept_name,db_source) values(#{id},"name77","ceshi77")
+    </insert>
+
+    <update id="updateData">
+        <if test="map != null">
+            update dept set
+            <foreach collection="map" index="key" item="value"  separator=",">
+                   ${key} = #{value}
+            </foreach>
+            where dept_no = #{deptNo}
+        </if>
+    </update>
+</mapper>
